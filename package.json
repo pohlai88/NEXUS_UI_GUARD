@@ -1,0 +1,74 @@
+{
+  "name": "@nexus/ui-guard",
+  "version": "1.0.0",
+  "description": "Nexus UI Guard — Supreme Court of the Nexus Design Constitution. Governance, enforcement, and migration tooling for design system compliance.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./ui/canonical.ts",
+      "types": "./ui/canonical.ts"
+    },
+    "./canonical": {
+      "import": "./ui/canonical.ts",
+      "types": "./ui/canonical.ts"
+    },
+    "./style.css": "./ui/style.css",
+    "./input.css": "./ui/input.css"
+  },
+  "main": "./ui/canonical.ts",
+  "types": "./ui/canonical.ts",
+  "files": [
+    "ui/",
+    "scripts/",
+    "eslint/",
+    "docs/"
+  ],
+  "scripts": {
+    "nx:generate": "npx tsx scripts/nx-generate.ts",
+    "nx:validate": "npx tsx scripts/nx-validate.ts",
+    "nx:check": "npx tsx scripts/nx-check.ts",
+    "nx:migrate": "npx tsx scripts/nx-migrate.ts",
+    "nx:migrate:dry": "npx tsx scripts/nx-migrate.ts --dry-run",
+    "nx:migrate:strict": "npx tsx scripts/nx-migrate.ts --strict",
+    "nx:full": "npm run nx:generate && npm run nx:validate && npm run nx:check",
+    "build:css": "npm run nx:generate && postcss ui/input.css -o ui/style.css --minify"
+  },
+  "bin": {
+    "nx-generate": "./scripts/nx-generate.ts",
+    "nx-validate": "./scripts/nx-validate.ts",
+    "nx-check": "./scripts/nx-check.ts",
+    "nx-migrate": "./scripts/nx-migrate.ts"
+  },
+  "keywords": [
+    "design-system",
+    "governance",
+    "tailwind",
+    "tokens",
+    "css",
+    "enforcement",
+    "migration",
+    "nexus"
+  ],
+  "author": "Nexus Kernel Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pohlai88/NEXUS_UI_GUARD.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pohlai88/NEXUS_UI_GUARD/issues"
+  },
+  "homepage": "https://github.com/pohlai88/NEXUS_UI_GUARD#readme",
+  "peerDependencies": {
+    "tailwindcss": ">=4.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "postcss": "^8.4.0",
+    "@tailwindcss/postcss": "^4.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
