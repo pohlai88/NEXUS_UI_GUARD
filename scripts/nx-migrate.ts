@@ -20,7 +20,6 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import { fileURLToPath } from "url";
 import {
   AIBOS_TO_NX_MAP,
   RAW_TAILWIND_TO_NX_MAP,
@@ -32,8 +31,12 @@ import {
  * CONFIGURATION
  * ============================================================ */
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, "..");
+// Detect if running from node_modules (consumer repo) or directly
+const SCRIPT_DIR = import.meta.dirname;
+const IS_IN_NODE_MODULES = SCRIPT_DIR.includes("node_modules");
+
+// PROJECT_ROOT: Always use cwd() - we're invoked from consumer's package.json scripts
+const ROOT = process.cwd();
 
 const SCAN_DIRS = [
   path.join(ROOT, "apps", "portal"),

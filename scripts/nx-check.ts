@@ -24,14 +24,12 @@ import { pathToFileURL } from "node:url";
 // Detect if running from node_modules (consumer repo) or directly
 const SCRIPT_DIR = import.meta.dirname;
 const IS_IN_NODE_MODULES = SCRIPT_DIR.includes("node_modules");
-const PROJECT_ROOT = IS_IN_NODE_MODULES
-  ? path.resolve(SCRIPT_DIR, "..", "..", "..", "..")  // node_modules/@nexus/ui-guard/scripts -> project root
-  : path.resolve(SCRIPT_DIR, "..");                    // scripts -> project root
 
-// Canonical always comes from the package
-const PACKAGE_ROOT = IS_IN_NODE_MODULES
-  ? path.resolve(SCRIPT_DIR, "..")
-  : path.resolve(SCRIPT_DIR, "..");
+// PROJECT_ROOT: Always use cwd() - we're invoked from consumer's package.json scripts
+const PROJECT_ROOT = process.cwd();
+
+// PACKAGE_ROOT: Where the ui-guard package lives (where canonical.ts is)
+const PACKAGE_ROOT = path.resolve(SCRIPT_DIR, "..");
 const CANONICAL_PATH = path.join(PACKAGE_ROOT, "ui", "canonical.ts");
 
 // Directories to scan for compliance
