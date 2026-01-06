@@ -21,8 +21,18 @@ import { pathToFileURL } from "node:url";
  * Constants
  * ============================================================ */
 
-const PROJECT_ROOT = path.resolve(import.meta.dirname, "..");
-const CANONICAL_PATH = path.join(PROJECT_ROOT, "ui", "canonical.ts");
+// Detect if running from node_modules (consumer repo) or directly
+const SCRIPT_DIR = import.meta.dirname;
+const IS_IN_NODE_MODULES = SCRIPT_DIR.includes("node_modules");
+const PROJECT_ROOT = IS_IN_NODE_MODULES
+  ? path.resolve(SCRIPT_DIR, "..", "..", "..", "..")  // node_modules/@nexus/ui-guard/scripts -> project root
+  : path.resolve(SCRIPT_DIR, "..");                    // scripts -> project root
+
+// Canonical always comes from the package
+const PACKAGE_ROOT = IS_IN_NODE_MODULES
+  ? path.resolve(SCRIPT_DIR, "..")
+  : path.resolve(SCRIPT_DIR, "..");
+const CANONICAL_PATH = path.join(PACKAGE_ROOT, "ui", "canonical.ts");
 
 // Directories to scan for compliance
 const SCAN_DIRS = [
